@@ -18,6 +18,7 @@ class BugsService {
 
   async createBug(bugData) {
     const bug = await dbContext.Bug.create(bugData)
+    await bug.populate('creator')
     return bug
   }
 
@@ -41,6 +42,8 @@ class BugsService {
     bug.title = bugData.title || bug.title
     bug.description = bugData.description || bug.description
     bug.priority = bugData.priority || bug.priority
+    await bug.save()
+    return bug
   }
 
   async closeBug(bugId, userId) {
@@ -49,6 +52,7 @@ class BugsService {
       throw new Forbidden('Not allowed to close')
     }
     bug.closed = true
+    await bug.save()
     return bug
   }
 }

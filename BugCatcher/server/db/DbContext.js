@@ -1,4 +1,4 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 import { AccountSchema, ProfileSchema } from '../models/Account'
 import { BugSchema } from '../models/Bug.js'
 import { NoteSchema } from '../models/Note.js'

@@ -2,20 +2,19 @@ import { Auth0Provider } from '@bcwdev/auth0provider'
 import { logger } from '../utils/Logger.js'
 import BaseController from '../utils/BaseController.js'
 import { bugsService } from '../services/BugsService.js'
-import { dbContext } from '../db/DbContext.js'
 
 export class BugsController extends BaseController {
   constructor() {
     super('api/bugs')
     this.router
       .get('', this.getBugs)
-      .get('/:id', this.getBugById)
+      .get('/:bugId', this.getBugById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createBug)
-      .get(':/:id/notes', this.getNotesById)
-      .get('/:id/trackedbugs', this.getTrackedBugs)
-      .put('/:id', this.editBug)
-      .delete('/:id', this.deleteBug)
+      .get('/:bugId/notes', this.getNotesById)
+      .get('/:bugId/trackedbugs', this.getTrackedBugs)
+      .put('/:bugId', this.editBug)
+      .delete('/:bugId', this.deleteBug)
   }
 
   async getBugs(req, res, next) {
