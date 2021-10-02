@@ -48,10 +48,10 @@ class BugsService {
 
   async closeBug(bugId, userId) {
     const bug = await this.getBugById(bugId)
+    if (bug.closed === true) { return }
     if (userId !== bug.creatorId.toString()) {
       throw new Forbidden('Not allowed to close')
     }
-    if (bug.closed === true) { return }
     bug.closed = true
     await bug.save()
     return bug
