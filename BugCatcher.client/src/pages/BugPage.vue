@@ -2,10 +2,29 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <div class="home flex-grow-1 d-flex flex-column align-items-end justify-content-end">
-          <button class="btn-btn bg-primary text-light selectable mt-3" data-bs-toggle="modal" data-bs-target="#bug-form">
+        <div class="div pt-2">
+          <button class="btn-btn bg-primary rounded shadow text-light" data-bs-toggle="modal" data-bs-target="#bug-form">
             Add a Bug
           </button>
+        </div>
+        <div class="home d-flex justify-content-end pt-2">
+          <div class="div text-start">
+          </div>
+          <div class="card-header shadow">
+            <small> Sort By: </small>
+            <button class="btn-btn bg-dark text-light rounded shadow" @click="order('all')">
+              Updated
+            </button>
+            <button class="btn-btn bg-dark text-light rounded shadow" @click="order('all')">
+              Priority
+            </button>
+            <button class="btn-btn bg-success text-dark rounded" @click="order('active')">
+              Open Bugs
+            </button>
+            <button class="btn-btn bg-danger text-dark rounded shadow" @click="order('closed')">
+              Closed Bugs
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -38,7 +57,15 @@ export default {
       bugsService.getBugs()
     })
     return {
-      bugs: computed(() => AppState.bugs)
+      bugs: computed(() => AppState.bugs),
+      profile: computed(() => AppState.profile),
+      sort: computed(() => AppState.sort),
+      bug: computed(() => AppState.bug),
+      currentBug: computed(() => AppState.currentBug),
+
+      order(status) {
+        AppState.sort.order = status
+      }
     }
   }
 }

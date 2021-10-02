@@ -6,5 +6,8 @@ export class Bug {
     this.closedDate = data.closedDate
     this.closed = data.closed
     this.priority = data.priority
+    this.id = data.id
+    this.updatedAt = data.updatedAt
+    this.creator = data.creator
   }
 }

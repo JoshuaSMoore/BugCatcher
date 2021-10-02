@@ -7,5 +7,8 @@ export const AppState = reactive({
   bugs: [],
   notes: [],
   trackedbugs: [],
-  bug: null
+  bug: [],
+  sort: { order: 'all' },
+  currentBug: {}
+  // status: ''
 })
