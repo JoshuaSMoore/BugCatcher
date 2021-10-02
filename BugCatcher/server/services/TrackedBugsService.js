@@ -12,8 +12,8 @@ class TrackedBugsService {
   }
 
   async deleteTrackedBug(trackedBugId, userId) {
-    const trackedbug = await dbContext.TrackedBug.find({ trackedBugId })
-    await trackedbug.splice(trackedBugId)
+    const trackedbug = await dbContext.TrackedBug.findByIdAndDelete(trackedBugId)
+    await trackedbug.remove()
     return trackedbug
   }
 }
