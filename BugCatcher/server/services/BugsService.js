@@ -22,10 +22,11 @@ class BugsService {
   }
 
   async getNotesById(bugId) {
-    const bug = await dbContext.Note.findById(bugId).populate('creator')
-    if (!bug) {
+    const note = await dbContext.Note.find({ bugId }).populate('creator')
+    if (!note) {
       throw new BadRequest('Invalid Bug Id')
     }
+    return note
   }
 
   async getTrackedBugsById(bugId) {
@@ -47,9 +48,9 @@ class BugsService {
 
   async closeBug(bugId, userId) {
     const bug = await this.getBugById(bugId)
-    // if (userId !== bug.creatorId.toString()) {
-    //   throw new Forbidden('Not allowed to close')
-    // }
+    if (userId !== bug.creatorId.toString()) {
+      throw new Forbidden('Not allowed to close')
+    }
     if (bug.closed === true) { return }
     bug.closed = true
     await bug.save()

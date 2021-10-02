@@ -1,5 +1,5 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
-import { dbContext } from '../db/DbContext.js'
+import { notesService } from '../services/NotesService.js'
 import BaseController from '../utils/BaseController.js'
 
 export class NotesController extends BaseController {
@@ -13,6 +13,7 @@ export class NotesController extends BaseController {
 
   async createNote(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const note = await notesService.createNote(req.body)
       res.send(note)
     } catch (error) {
@@ -22,7 +23,7 @@ export class NotesController extends BaseController {
 
   async deleteNote(req, res, next) {
     try {
-      const note = await notesService.deleteNote(req.params.bugId, req.params.accountId)
+      const note = await notesService.deleteNote(req.params.noteId)
       res.send(note)
     } catch (error) {
       next(error)
