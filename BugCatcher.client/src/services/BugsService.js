@@ -26,6 +26,11 @@ class BugsService {
   async editBug(bugId, editbug) {
     try {
       editbug.closed = !editbug.closed
+      if (editbug.closed === false) {
+        editbug.closed = true
+      } else {
+        editbug.closed = false
+      }
       await api.put(`api/bugs/${bugId}`, editbug)
       this.getBugs()
       this.showCurrentBug(bugId)
