@@ -25,7 +25,7 @@ class BugsService {
 
   async editBug(bugId, editbug) {
     try {
-      editbug.closed = !editbug.closed
+      AppState.currentBug = editbug
       if (editbug.closed === false) {
         editbug.closed = true
       } else {

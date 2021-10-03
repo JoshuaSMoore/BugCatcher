@@ -1,6 +1,6 @@
 <template>
   <div class="BugDetailsPage container-fluid">
-    <div class="row my-5 align-content-center" v-if="currentBug.id">
+    <div class="row my-5 align-content-center" v-if="currentBug">
       <div class="col-12 d-flex justify-content-center">
         <div class="d-flex shadow p-2">
           <h1 class="my-auto">
@@ -11,8 +11,8 @@
     </div>
     <div class="row justify-content-center rounded">
       <div class="col-6 bg-light p-2 shadow rounded">
-        <div class=" m-0 p-2 d-flex justify-content-between" v-if="account.id == currentBug.creatorId">
-          <div class="form-check form-switch" v-if="!currentBug.closed" @click="editBug(currentBug.id, currentBug)">
+        <div class=" m-0 p-2 d-flex justify-content-between" v-if="account.id == currentBug.creator.id">
+          <div class="form-check form-switch" v-if="!currentBug.closed" @click="editBug(currentBug)">
             <label class="form-check-label" for="flexSwitchCheckDefault">Bug Status</label>
             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
           </div>
