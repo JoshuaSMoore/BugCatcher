@@ -1,6 +1,6 @@
 import { AppState } from '../AppState.js'
-import { Note } from '../Models/Note.js'
 import { logger } from '../utils/Logger'
+import Pop from '../utils/Pop.js'
 import { api } from './AxiosService.js'
 
 class NotesService {
@@ -13,23 +13,26 @@ class NotesService {
     }
   }
 
-  async deleteNote(noteId) {
-    try {
-      await api.delete(`api/notes/${noteId}`)
-      this.getNotes()
-    } catch (error) {
-      logger.log(error)
+  async deleteNote(id) {
+    if (await Pop.confirm()) {
+      try {
+        const res = await api.delete('api/notes/' + id)
+        Pop.toast(res.data.message, 'success')
+        AppState.notes = AppState.notes.filter(n => n.id !== id)
+      } catch (error) {
+        Pop.toast(error)
+      }
     }
   }
 
-  async createNote(noteId, newNote) {
+  async createNote(newNote) {
     try {
-      // newNote.bugId = noteId
       const res = await api.post('api/notes', newNote)
-      AppState.notes = res.data
+      AppState.notes.push(res.data)
     } catch (error) {
       logger.log('notes creatior error', error)
     }
   }
 }
+
 export const notesService = new NotesService()

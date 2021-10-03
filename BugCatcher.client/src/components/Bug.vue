@@ -24,9 +24,15 @@
             <h4>
               {{ bug.description }}
             </h4>
-            <!-- <h4 v-if="bug.closed == true">
-              {{ status }}
-            </h4> -->
+            <div v-if="!bug.closed == true">
+              Status
+              <br>
+              <i class="mdi mdi-circle mdi-48px text-success"></i>
+              <!-- <span> {{ bug.closed }}</span> -->
+            </div>
+            <div v-else>
+              <i class="mdi mdi-circle mdi-48px text-danger"></i>
+            </div>
           </div>
         </div>
       </div>

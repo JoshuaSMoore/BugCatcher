@@ -28,19 +28,28 @@ import { logger } from '../utils/Logger.js'
 import { Modal } from 'bootstrap'
 import { Bug } from '../Models/Bug.js'
 import { ref } from '@vue/reactivity'
+import { computed } from '@vue/runtime-core'
+import { AppState } from '../AppState.js'
+import { useRoute } from 'vue-router'
 
 export default {
   props: {
     bug: { type: Bug, required: true }
   },
   setup(props) {
+    const route = useRoute()
     const editable = ref({})
     return {
       editable,
-
+      account: computed(() => AppState.account),
+      notes: computed(() => AppState.notes),
+      bugs: computed(() => AppState.bugs),
+      currentBug: computed(() => AppState.currentBug),
       async createNote() {
         try {
-          await notesService.createNote(props.bugId, editable.value)
+          editable.value.bugId = props.bugId
+          editable.value.bugId = route.params.bugId
+          await notesService.createNote(editable.value, route.params.bugId)
           Pop.toast('Note Added', 'success')
           const modal = Modal.getInstance(document.getElementById('note-form'))
           modal.hide()

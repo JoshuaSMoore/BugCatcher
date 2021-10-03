@@ -11,7 +11,7 @@
     </div>
     <div class="row justify-content-center rounded">
       <div class="col-6 bg-light p-2 shadow rounded">
-        <div class=" m-0 p-2 d-flex justify-content-between" v-if="account.id == currentBug.creator.id">
+        <div class=" m-0 p-2 d-flex justify-content-between" v-if="account.id == currentBug.creatorId">
           <div class="form-check form-switch" v-if="!currentBug.closed" @click="editBug(currentBug)">
             <label class="form-check-label" for="flexSwitchCheckDefault">Bug Status</label>
             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
@@ -31,7 +31,7 @@
       </div>
 
       <div class="container-fluid">
-        <button class="btn-btn bg-primary rounded shadow text-light" data-bs-toggle="modal" data-bs-target="#note-form">
+        <button class="btn-btn bg-primary rounded shadow text-light" v-if="!currentBug.closed" data-bs-toggle="modal" data-bs-target="#note-form">
           Add a Note
         </button>
         <div class="row">
@@ -70,6 +70,11 @@ export default {
       } catch (error) {
         Pop.toast(error, 'error')
       }
+      try {
+        await notesService.getNotes(route.params.bugId)
+      } catch (error) {
+        Pop.toast(error, 'error')
+      }
     })
     return {
       route,
@@ -79,9 +84,6 @@ export default {
       bugs: computed(() => AppState.bugs),
       notes: computed(() => AppState.notes),
 
-      async getNotes() {
-        await notesService.getNotes(props.bug.id)
-      },
       async editBug(bugId) {
         await bugsService.editBug(bugId)
       }

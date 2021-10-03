@@ -1,12 +1,13 @@
 import { dbContext } from '../db/DbContext.js'
 import { Forbidden } from '../utils/Errors.js'
-import { bugsService } from './BugsService.js'
 
 class NotesService {
   async createNote(noteData) {
-    await bugsService.getBugById(noteData.bugId)
     const note = await dbContext.Note.create(noteData)
-    await note.populate('creator')
+    await dbContext.Note.findById(note.id)
+    await note.populate('creator').populate
+    await note.populate('bug').populate
+
     return note
   }
 
