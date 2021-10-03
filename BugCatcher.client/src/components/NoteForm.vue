@@ -26,7 +26,6 @@ import { notesService } from '../services/NotesService.js'
 import Pop from '../utils/Pop.js'
 import { logger } from '../utils/Logger.js'
 import { Modal } from 'bootstrap'
-import { Bug } from '../Models/Bug.js'
 import { ref } from '@vue/reactivity'
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState.js'
@@ -34,7 +33,7 @@ import { useRoute } from 'vue-router'
 
 export default {
   props: {
-    bug: { type: Bug, required: true }
+    bug: { type: Object, required: true }
   },
   setup(props) {
     const route = useRoute()

@@ -13,12 +13,12 @@ class NotesService {
     }
   }
 
-  async deleteNote(id) {
+  async deleteNote(noteId) {
     if (await Pop.confirm()) {
       try {
-        const res = await api.delete('api/notes/' + id)
+        const res = await api.delete('api/notes/' + noteId)
         Pop.toast(res.data.message, 'success')
-        AppState.notes = AppState.notes.filter(n => n.id !== id)
+        AppState.note = AppState.notes.filter(n => n.id !== noteId)
       } catch (error) {
         Pop.toast(error)
       }

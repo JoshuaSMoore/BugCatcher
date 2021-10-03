@@ -47,7 +47,7 @@ import { AppState } from '../AppState.js'
 
 export default {
   props: {
-    bug: { type: Bug, required: true }
+    bug: { type: Object, required: true }
   },
   setup(props) {
     return {

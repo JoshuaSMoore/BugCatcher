@@ -2,8 +2,8 @@ import { AppState } from '../AppState.js'
 import { Bug } from '../Models/Bug.js'
 import { router } from '../router.js'
 import { logger } from '../utils/Logger.js'
+import Pop from '../utils/Pop.js'
 import { api } from './AxiosService.js'
-
 class BugsService {
   async getBugs(query = '') {
     const res = await api.get('api/bugs' + query)
@@ -23,20 +23,26 @@ class BugsService {
     router.push({ name: 'BugDetails', params: { bugId: res.data.id } })
   }
 
-  async editBug(bugId, editbug) {
+  async closeBug(bugId, currentBug) {
     try {
-      AppState.currentBug = editbug
-      if (editbug.closed === false) {
-        editbug.closed = true
-      } else {
-        editbug.closed = false
-      }
-      await api.put(`api/bugs/${bugId}`, editbug)
-      this.getBugs()
-      this.showCurrentBug(bugId)
+      const res = await api.delete('api/bugs/' + bugId, currentBug)
+      logger.log(res.data, 'closed logger')
+      AppState.currentBug = res.data
     } catch (error) {
-      logger.log('did edit work?', error)
+      Pop.toast(error)
     }
   }
 }
+
+// async editBug(bugId, editbug) {
+//   try {
+//     AppState.currentBug = editbug
+//     await api.put(`api/bugs/${bugId}`, editbug)
+//     this.getBugs()
+//     this.showCurrentBug(bugId)
+//   } catch (error) {
+//     logger.log('did edit work?', error)
+//   }
+// }
+
 export const bugsService = new BugsService()

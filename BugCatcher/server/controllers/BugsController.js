@@ -9,10 +9,10 @@ export class BugsController extends BaseController {
     this.router
       .get('', this.getBugs)
       .get('/:bugId', this.getBugById)
-      .use(Auth0Provider.getAuthorizedUserInfo)
-      .post('', this.createBug)
       .get('/:bugId/notes', this.getNotesById)
       .get('/:bugId/trackedbugs', this.getTrackedBugs)
+      .use(Auth0Provider.getAuthorizedUserInfo)
+      .post('', this.createBug)
       .put('/:bugId', this.editBug)
       .delete('/:bugId', this.deleteBug)
   }
@@ -80,7 +80,7 @@ export class BugsController extends BaseController {
 
   async deleteBug(req, res, next) {
     try {
-      const bug = await bugsService.closeBug(req.params.bugId)
+      const bug = await bugsService.closeBug(req.params.bugId, req.userInfo.id)
       res.send(bug)
     } catch (error) {
       next(error)

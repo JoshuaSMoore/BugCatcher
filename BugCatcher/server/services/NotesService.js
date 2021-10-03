@@ -11,9 +11,9 @@ class NotesService {
     return note
   }
 
-  async deleteNote(noteId, userId) {
+  async deleteNote(noteId, accountId) {
     const note = await dbContext.Note.findByIdAndRemove(noteId)
-    if (userId !== note.creatorId.toString()) {
+    if (note.creatorId !== accountId.toString()) {
       throw new Forbidden('Not allowed to close')
     }
     await note.remove()
