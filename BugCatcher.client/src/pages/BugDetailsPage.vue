@@ -34,7 +34,7 @@
     </div>
     <div class="container-fluid" v-if="currentBug.id">
       <div class="row justify-content-center">
-        <div class="card header-style shadow bg-secondary lighten-5 border-primary">
+        <div class="card header-style shadow bg-secondary lighten-5 border-primary pt-2">
           <div>
             <button class="btn-btn bg-primary rounded shadow text-dark border-warning" title="Add a note" v-if="!currentBug.closed" data-bs-toggle="modal" data-bs-target="#note-form">
               Add a Note
