@@ -28,7 +28,7 @@
               </div>
               <br>
               <small>
-                Last Update:<br> {{ new Date(bug.updatedAt).toLocaleString('en', date) }}
+                Last Update:<br> {{ new Date(bug.updatedAt).toLocaleString('en') }}
               </small>
             </div>
             <div class="div text-center">

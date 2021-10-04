@@ -1,5 +1,6 @@
 import { dbContext } from '../db/DbContext.js'
 import { Forbidden } from '../utils/Errors.js'
+import { logger } from '../utils/Logger.js'
 
 class NotesService {
   async createNote(noteData) {
@@ -11,9 +12,10 @@ class NotesService {
     return note
   }
 
-  async deleteNote(noteId, userId) {
+  async deleteNote(noteId, accountId) {
     const note = await dbContext.Note.findById(noteId)
-    if (note.creatorId !== userId.toString()) {
+    if (accountId !== note.creatorId.toString()) {
+      logger.log('testing the delete on server side', accountId)
       throw new Forbidden('Not allowed to close')
     }
     await note.remove()

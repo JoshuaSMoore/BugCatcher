@@ -32,17 +32,12 @@ class BugsService {
       Pop.toast(error)
     }
   }
-}
 
-// async editBug(bugId, editbug) {
-//   try {
-//     AppState.currentBug = editbug
-//     await api.put(`api/bugs/${bugId}`, editbug)
-//     this.getBugs()
-//     this.showCurrentBug(bugId)
-//   } catch (error) {
-//     logger.log('did edit work?', error)
-//   }
-// }
+  async editBug(bug) {
+    const res = await api.put('api/bugs/' + bug.id, bug)
+    AppState.bug = new Bug(res.data)
+    AppState.currentBug = res.data
+  }
+}
 
 export const bugsService = new BugsService()

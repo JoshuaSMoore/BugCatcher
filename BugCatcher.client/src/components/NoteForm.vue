@@ -30,10 +30,11 @@ import { ref } from '@vue/reactivity'
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState.js'
 import { useRoute } from 'vue-router'
+import { Bug } from '../Models/Bug.js'
 
 export default {
   props: {
-    bug: { type: Object, required: true }
+    bug: { type: Bug, default: () => new Bug() }
   },
   setup(props) {
     const route = useRoute()

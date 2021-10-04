@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="createBug()">
+  <form @submit.prevent="editBug()">
     <div class="form-group">
       <label for="title">Name</label>
       <input type="text"
@@ -44,7 +44,7 @@
             Cancel
           </b>
           <button type="submit" title="Submit" class="btn btn-success mt-2">
-            Create
+            Edit
           </button>
         </button>
       </div>
@@ -57,12 +57,13 @@ import Pop from '../utils/Pop'
 import { Modal } from 'bootstrap'
 import { logger } from '../utils/Logger.js'
 import { bugsService } from '../services/BugsService.js'
+import { computed, watchEffect } from '@vue/runtime-core'
 import { Bug } from '../Models/Bug.js'
-import { watchEffect } from '@vue/runtime-core'
+import { AppState } from '../AppState.js'
 
 export default {
   props: {
-    bug: { type: Bug, default: () => new Bug() }
+    bug: { type: Object, default: () => new Bug() }
   },
   setup(props) {
     const editable = ref({})
@@ -71,14 +72,16 @@ export default {
     })
     return {
       editable,
-      async createBug() {
+      currentBug: computed(() => AppState.currentBug),
+      async editBug() {
         try {
-          Pop.toast('Bug Added', 'success')
-          await bugsService.createBug(editable.value)
-          const modal = Modal.getInstance(document.getElementById('bug-form'))
+          await bugsService.editBug(editable.value)
+          const modal = Modal.getInstance(document.getElementById('edit-form'))
           modal.hide()
+          Pop.toast('Bug edited', 'success')
+          logger.log(editable.value.id, 'edit')
         } catch (error) {
-          Pop.toast(error.message, 'error')
+          Pop.toast('error', error)
           logger.log(error)
         }
       }

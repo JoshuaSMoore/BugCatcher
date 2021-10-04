@@ -10,6 +10,6 @@ export const AppState = reactive({
   trackedbugs: [],
   bug: [],
   sort: { order: 'all' },
-  currentBug: {}
+  currentBug: null
   // status: ''
 })

@@ -1,5 +1,5 @@
 export class Bug {
-  constructor(data) {
+  constructor(data = {}) {
     this.creatorId = data.creatorId
     this.description = data.description
     this.title = data.title

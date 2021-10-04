@@ -77,7 +77,7 @@ export default {
       profile: computed(() => AppState.profile),
       sort: computed(() => AppState.sort),
       currentBug: computed(() => AppState.currentBug),
-      bug: computed(() => AppState.bugs.filter(prioFilterFunction)),
+      bug: computed(() => AppState.bugs.filter(prioFilterFunction).sort),
       togglePriority() {
         prioFilter.value = !prioFilter.value
         logger.log(prioFilter)
