@@ -3,11 +3,11 @@
     <div class="col-2"></div>
     <div class="col-md-8 card">
       <div class="div">
-        <img :src="note.creator.picture" class="rounded-circle mr-4" height="30" alt="">
-        {{ note.creator.name }}
+        <!-- <img :src="note.creator.picture" class="rounded-circle mr-4" height="30" alt="">
+        {{ note.creator.name }} -->
       </div>
       <div class="on-hover text-end" style="right: 1rem; top: 1rem" v-if="account.id == note.creatorId">
-        <i class="mdi mdi-delete text-danger f-30 selectable" @click="deleteNote(noteId)" v-if="!currentBug.closed">
+        <i class="mdi mdi-delete text-danger f-30 selectable" @click="deleteNote(id)" v-if="!currentBug.closed">
           Delete
         </i>
       </div>
@@ -25,13 +25,16 @@
 import { notesService } from '../services/NotesService'
 import { computed } from 'vue'
 import { AppState } from '../AppState'
+import { useRoute } from 'vue-router'
 
 export default {
   props: {
     note: { type: Object, required: true }
   },
   setup(props) {
+    const route = useRoute()
     return {
+      route,
       currentBug: computed(() => AppState.currentBug),
       notes: computed(() => AppState.notes),
       bugs: computed(() => AppState.bugs),
@@ -39,7 +42,7 @@ export default {
       user: computed(() => AppState.user),
 
       async  deleteNote(noteId) {
-        await notesService.deleteNote(noteId)
+        await notesService.deleteNote(route.params.noteId, props.note.id)
       }
     }
   }

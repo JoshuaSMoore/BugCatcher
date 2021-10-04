@@ -2,7 +2,7 @@
   <header>
     <Navbar />
   </header>
-  <main>
+  <main class="main-back">
     <router-view />
   </main>
   <footer>
@@ -24,4 +24,7 @@ export default {
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
+.main-back{
+overflow-x: hidden
+}
 </style>

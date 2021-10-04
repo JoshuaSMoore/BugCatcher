@@ -2,12 +2,9 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img
-          src="https://img1.pnghut.com/19/7/23/StPf4PwALw/invertebrate-smile-royaltyfree-drawing-artwork.jpg"
-          height="40"
-        />
+        <i class="mdi mdi-bug mdi-48px text-primary"></i>
       </div>
-      <h4 class="">
+      <h4 class="mt-4">
         BugLog
       </h4>
     </router-link>

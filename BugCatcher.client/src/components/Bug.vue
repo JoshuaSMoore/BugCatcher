@@ -15,15 +15,32 @@
               <router-link :to="{name: 'BugDetails', params: {bugId: bug.id }}" :title="bug.title">
                 {{ bug.title }}
               </router-link>
-              <br> Priority Level:  {{ bug.priority }}
+              <div class="text-success mt-3" v-if="bug.priority <=3">
+                <small>
+                  Priority Level:  {{ bug.priority }}
+                </small>
+              </div>
+              <div class="text-warning mt-3" v-if="bug.priority == 4">
+                <small>
+                  Priority Level:  {{ bug.priority }}
+                </small>
+              </div>
+              <div class="text-danger mt-3" v-if="bug.priority == 5">
+                <small>
+                  Priority Level:  {{ bug.priority }}
+                </small>
+              </div>
               <br>
               <small>
-                Last Update: {{ bug.updatedAt.split('T').splice(0,1).join('') }}
+                Last Update:<br> {{ new Date(bug.updatedAt).toLocaleString('en', date) }}
               </small>
             </h5>
-            <h4>
-              {{ bug.description }}
-            </h4>
+            <div class="div">
+              <small> Details: </small> <br>
+              <h4>
+                {{ bug.description }}
+              </h4>
+            </div>
             <div v-if="!bug.closed == true">
               Status
               <br>
@@ -31,6 +48,8 @@
               <!-- <span> {{ bug.closed }}</span> -->
             </div>
             <div v-else>
+              Status
+              <br>
               <i class="mdi mdi-circle mdi-48px text-danger"></i>
             </div>
           </div>
@@ -42,7 +61,6 @@
 
 <script>
 import { computed } from '@vue/runtime-core'
-import { Bug } from '../Models/Bug.js'
 import { AppState } from '../AppState.js'
 
 export default {

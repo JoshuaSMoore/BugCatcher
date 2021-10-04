@@ -40,6 +40,7 @@ export default {
     const editable = ref({})
     return {
       editable,
+      route,
       account: computed(() => AppState.account),
       notes: computed(() => AppState.notes),
       bugs: computed(() => AppState.bugs),
