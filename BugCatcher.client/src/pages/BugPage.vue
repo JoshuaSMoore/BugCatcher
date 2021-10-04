@@ -15,10 +15,10 @@
           <div class="row result-controls pe-3 pt-2" @contextmenu.prevent v-if="bugs.length">
             <div class="card-header shadow bg-secondary lighten-10 rounded">
               <small> Sort By: </small>
-              <button class="btn-btn bg-secondary text-dark rounded shadow" title="Last Updated" @click="order('all')">
+              <button class="btn-btn bg-secondary text-dark rounded shadow" title="Last Updated" @click="getAllBugs()">
                 Last Updated
               </button>
-              <button class="btn-btn bg-primary text-dark rounded shadow" title="Priority Level" @click="togglePriority">
+              <button class="btn-btn bg-primary text-dark rounded shadow" title="Priority Level" @click="order('priority')">
                 Priority
               </button>
               <button class="btn-btn bg-success lighten-15 text-dark rounded" title="Open Bugs" @click="order('active')">
@@ -35,7 +35,7 @@
   </div>
   <div class="container-fluid p-3 pe-4">
     <div class="row card bg-primary lighten-20">
-      <Bug v-for="bug in bugs" :key="bug.id" :bug="bug" class="" />
+      <Bug v-for="bug in bug" :key="bug.id" :bug="bug" class="" />
     </div>
   </div>
   <div class="container-fluid">
@@ -60,31 +60,24 @@ import { logger } from '../utils/Logger.js'
 
 export default {
   setup() {
-    const prioFilter = ref(true)
-
-    function prioFilterFunction(a, b) {
-      if (prioFilter.value) {
-        return b.priority - a.priority
-      }
-      return a.priority - b.priority
-    }
     onMounted(() => {
       bugsService.getBugs()
     })
     return {
-      prioFilter,
       bugs: computed(() => AppState.bugs),
       profile: computed(() => AppState.profile),
       sort: computed(() => AppState.sort),
       currentBug: computed(() => AppState.currentBug),
-      bug: computed(() => AppState.bugs.filter(prioFilterFunction).sort),
+      bug: computed(() => AppState.bugs),
       togglePriority() {
-        prioFilter.value = !prioFilter.value
-        logger.log(prioFilter)
       },
 
       order(status) {
         AppState.sort.order = status
+      },
+
+      async getAllBugs() {
+        await bugsService.getBugs()
       }
     }
   }

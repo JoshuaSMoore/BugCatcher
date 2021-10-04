@@ -9,6 +9,7 @@ class BugsService {
     const res = await api.get('api/bugs' + query)
     AppState.bugs = res.data.map(b => new Bug(b))
     AppState.currentBug = new Bug(res.data)
+    AppState.sortedBugs = res.data.map(b => new Bug(b))
   }
 
   async getBugById(id) {

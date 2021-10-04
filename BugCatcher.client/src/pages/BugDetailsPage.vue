@@ -5,10 +5,14 @@
         <button class="btn-btn bg-primary rounded shadow text-dark border-warning" title="Edit bug" v-if="!currentBug.closed" data-bs-toggle="modal" data-bs-target="#edit-form">
           Edit Bug
         </button>
-        <!-- <div v-if="!trackedBug.accountId == trackedBug.accountId"> -->
-        <button class="btn-btn bg-danger lighten-10 text-dark rounded shadow" title="Track Bug" @click="trackedBug(currentBug.id)">
+        <button class="btn-btn bg-danger lighten-10 text-dark rounded shadow" title="Track Bug" v-if="!trackedbug" @click="trackedBug(currentBug.id)">
           Track Bug
         </button>
+        <div v-else>
+          <button class="btn-btn bg-Primary lighten-10 text-dark rounded shadow" title="Track Bug" @click="deleteTrackedBug(currentBug.id)">
+            Remove
+          </button>
+        </div>
         <div class="col-12 d-flex justify-content-center">
           <h3>
             {{ currentBug.title }}  <i class="mdi mdi-bug mdi-36px text-primary"></i>
@@ -24,6 +28,10 @@
             <p class="text-center">
               {{ currentBug.description }}
             </p>
+            <p>
+              Whos tracking this bug:
+            </p>
+            <br>
             <span v-if="!currentBug.closed == true">
               <i class="mdi mdi-circle mdi-36px text-success"></i>
               <!-- <span> {{ bug.closed }}</span> -->
@@ -121,7 +129,7 @@ export default {
       currentBug: computed(() => AppState.currentBug),
       bugs: computed(() => AppState.bugs),
       notes: computed(() => AppState.notes),
-      trackedbug: computed(() => AppState.trackedbug),
+      trackedbug: computed(() => AppState.trackedbugs.find(b => b.accountId === AppState.account.id)),
 
       async toggleClosed(bugId) {
         try {

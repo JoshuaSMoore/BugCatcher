@@ -14,6 +14,15 @@ class TrackedBugsService {
       Pop.toast(error)
     }
   }
+
+  async removeTrackedBug(trackedBugId) {
+    try {
+      const res = await api.delete(`api/trackedbugs/${trackedBugId}`)
+      AppState.trackedbugs = res.data
+    } catch (error) {
+      logger.log('tracked bugs creatior error', error)
+    }
+  }
 }
 
 export const trackedBugsService = new TrackedBugsService()
