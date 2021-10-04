@@ -5,7 +5,7 @@
       <input type="text"
              class="form-control bg-light"
              name="title"
-             placeholder="Project Name"
+             placeholder="Bug Name"
              v-model="editable.title"
              required
       >
@@ -15,7 +15,7 @@
       <input type="text"
              class="form-control bg-light"
              name="body"
-             placeholder="Project Description"
+             placeholder="Description"
              v-model="editable.description"
              required
       >
@@ -43,7 +43,7 @@
           <b>
             Cancel
           </b>
-          <button type="submit" class="btn btn-success mt-2">
+          <button type="submit" title="Submit" class="btn btn-success mt-2">
             Create
           </button>
         </button>

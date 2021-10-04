@@ -1,11 +1,11 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary darken-20 px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <i class="mdi mdi-bug mdi-48px text-primary"></i>
+        <i class="mdi mdi-bug mdi-48px text-primary" title="Home Page"></i>
       </div>
-      <h4 class="mt-4">
-        BugLog
+      <h4 class="mt-4 " title="Home Page">
+        Fly Swatter
       </h4>
     </router-link>
     <button
@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'Account' }" class="btn text-success lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'Account' }" class="btn text-success lighten-30 selectable text-uppercase" title="Account Page">
             Account
           </router-link>
         </li>
@@ -30,6 +30,7 @@
       <span class="navbar-text">
         <button
           class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
+          title="Login"
           @click="login"
           v-if="!user.isAuthenticated"
         >
@@ -39,12 +40,14 @@
         <div class="dropdown my-2 my-lg-0" v-else>
           <div
             class="dropdown-toggle selectable"
+            title="Account Menu"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             id="authDropdown"
           >
             <img
               :src="user.picture"
+              title="Account Menu"
               alt="user photo"
               height="40"
               class="rounded"
@@ -56,12 +59,13 @@
             aria-labelledby="authDropdown"
           >
             <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item list-group-item-action hoverable">
+              <div class="list-group-item list-group-item-action hoverable" title="Manage Account">
                 Manage Account
               </div>
             </router-link>
             <div
               class="list-group-item list-group-item-action hoverable text-danger"
+              title="Logout"
               @click="logout"
             >
               <i class="mdi mdi-logout"></i>

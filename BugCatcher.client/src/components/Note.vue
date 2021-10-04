@@ -1,20 +1,19 @@
 <template>
-  <div class="row m-2 p-1">
-    <div class="col-2"></div>
-    <div class="col-md-8 card">
+  <div class="row m-2 p-1 justify-content-center">
+    <div class="col-md-10 card bg-primary lighten-10 border-warning">
       <div class="div">
-        <!-- <img :src="note.creator.picture" class="rounded-circle mr-4" height="30" alt="">
-        {{ note.creator.name }} -->
+        <img :src="note.creator.picture" class="rounded-circle mr-4" height="30" alt="">
+        {{ note.creator.name }}
       </div>
       <div class="on-hover text-end" style="right: 1rem; top: 1rem" v-if="account.id == note.creatorId">
-        <i class="mdi mdi-delete text-danger f-30 selectable" @click="deleteNote(id)" v-if="!currentBug.closed">
+        <i class="mdi mdi-delete text-danger f-30 selectable" title="Delete Note" @click="deleteNote(id)" v-if="!currentBug.closed">
           Delete
         </i>
       </div>
-      <div class="card-body shadow p-1">
-        <h5 class="">
+      <div class="">
+        <h6 class="">
           {{ note.body }}
-        </h5>
+        </h6>
       </div>
       <div class="col-2"></div>
     </div>

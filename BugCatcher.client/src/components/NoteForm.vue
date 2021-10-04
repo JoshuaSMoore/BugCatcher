@@ -12,7 +12,7 @@
     </div>
     <div class="form-group">
       <div class="d-flex justify-content-between my-3">
-        <button type="submit" class="btn btn-primary mt-2">
+        <button type="submit" title="Add Note" class="btn btn-primary mt-2">
           Create
         </button>
       </div>

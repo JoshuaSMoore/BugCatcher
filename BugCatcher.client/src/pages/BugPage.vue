@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-3">
         <div class="div pt-2 ps-2 d-flex justify-content-start">
-          <button class="btn-btn bg-primary rounded shadow text-light bugbtn" data-bs-toggle="modal" data-bs-target="#bug-form">
-            Add a Bug
+          <button class="btn-btn bg-primary rounded shadow text-dark bugbtn" data-bs-toggle="modal" data-bs-target="#bug-form" title="Add a Bug">
+            Add a Bug <i class="mdi mdi-bug mdi-24px text-dark"></i>
           </button>
         </div>
       </div>
@@ -15,16 +15,16 @@
           <div class="row result-controls pe-3 pt-2" @contextmenu.prevent v-if="bugs.length">
             <div class="card-header shadow bg-secondary lighten-10 rounded">
               <small> Sort By: </small>
-              <button class="btn-btn bg-dark text-light rounded shadow" @click="order('all')">
+              <button class="btn-btn bg-secondary text-dark rounded shadow" title="Last Updated" @click="order('all')">
                 Last Updated
               </button>
-              <button class="btn-btn bg-dark text-light rounded shadow" @click="togglePriority">
+              <button class="btn-btn bg-primary text-dark rounded shadow" title="Priority Level" @click="togglePriority">
                 Priority
               </button>
-              <button class="btn-btn bg-success text-dark rounded" @click="order('active')">
+              <button class="btn-btn bg-success lighten-15 text-dark rounded" title="Open Bugs" @click="order('active')">
                 Open Bugs
               </button>
-              <button class="btn-btn bg-danger text-dark rounded shadow" @click="order('closed')">
+              <button class="btn-btn bg-danger lighten-10 text-dark rounded shadow" title="Closed Bugs" @click="order('closed')">
                 Closed Bugs
               </button>
             </div>

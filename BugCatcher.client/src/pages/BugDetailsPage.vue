@@ -1,69 +1,69 @@
 <template>
-  <div class="BugDetailsPage container-fluid">
-    <div class="row my-5 align-content-center" v-if="currentBug">
+  <div class="container-fluid p-2">
+    <div class="row p-2 align-content-center" v-if="currentBug">
       <div class="col-12 d-flex justify-content-center">
-        <div class="d-flex shadow p-2">
-          <h1 class="my-auto">
-            {{ currentBug.title }}  <i class="mdi mdi-bug mdi-36px text-primary"></i>
-          </h1>
-        </div>
+        <h3>
+          {{ currentBug.title }}  <i class="mdi mdi-bug mdi-36px text-primary"></i>
+        </h3>
       </div>
-    </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row justify-content-center rounded">
-      <div class="col-6 bg-light p-2 shadow rounded d-flex justify-content-between">
-        <p class="">
-          <!-- <small>
-          Submitted by:{{ currentBug.creator.email }}<br>
-          <img :src="currentBug.creator.picture" class="rounded-circle" height="25" alt="">
-        </small> -->
+      <div class="row justify-content-center rounded">
+        <div class="col-8 card bg-secondary lighten-5 p-2 shadow rounded d-flex justify-content-between border-primary">
+          <!-- <p>
+            <img :src="currentBug.creator.picture" class="rounded-circle" height="50" alt="">
+            Submitted by:{{ currentBug.creator.email }}<br>
+          </p> -->
           <br><br>
-          {{ currentBug.description }}
-        </p>
-        <div class=" m-0 p-2 d-flex justify-content-between" v-if="currentBug.id">
-          <div class="row text-left">
-            <div class="col-10">
-              <small>Status</small>
-              <div class="form-check form-switch" v-if="!currentBug.closed && account.id === currentBug.creatorId" @click="toggleClosed()">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-              </div>
-              <span v-if="!currentBug.closed == true">
-                <i class="mdi mdi-circle mdi-36px text-success"></i>
-                <!-- <span> {{ bug.closed }}</span> -->
-              </span>
-              <span v-else>
-                <i class="mdi mdi-circle mdi-36px text-danger"></i>
-              </span>
+          <p class="text-center">
+            {{ currentBug.description }}
+          </p>
+          <span v-if="!currentBug.closed == true">
+            <i class="mdi mdi-circle mdi-36px text-success"></i>
+            <!-- <span> {{ bug.closed }}</span> -->
+          </span>
+          <div class="p-2 d-flex" v-if="currentBug.id">
+            <small>Status</small>
+            <div class="form-check form-switch" v-if="!currentBug.closed && account.id === currentBug.creatorId" @click="toggleClosed()">
+              <input class="form-check-input" title="Close Bug" type="checkbox" id="flexSwitchCheckDefault">
             </div>
+            <span v-else>
+              <i class="mdi mdi-circle mdi-36px text-danger"></i>
+            </span>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="container-fluid" v-if="currentBug.id">
-    <div class="row">
-      <div class="card-header">
-        <h4 class="text-center">
-          {{ currentBug.title }} Notes
-        </h4>
-        <button class="btn-btn bg-primary rounded shadow text-light" v-if="!currentBug.closed" data-bs-toggle="modal" data-bs-target="#note-form">
-          Add a Note
-        </button>
+    <div class="container-fluid" v-if="currentBug.id">
+      <div class="row justify-content-center">
+        <div class="card header-style shadow bg-secondary lighten-5 border-primary">
+          <div>
+            <button class="btn-btn bg-primary rounded shadow text-dark border-warning" title="Add a note" v-if="!currentBug.closed" data-bs-toggle="modal" data-bs-target="#note-form">
+              Add a Note
+            </button>
+          </div>
+          <h4 class="text-center pb-2">
+            {{ currentBug.title }} Notes
+          </h4>
+        </div>
       </div>
-    </div>
-    <div class="container-fluid">
-      <Note v-for="note in notes" :key="note.id" :note="note" class="" />
+      <div class="container-fluid p-1">
+        <div class="col-12">
+          <div class="row justify-content-center">
+            <div class="card bg-secondary lighten-5 note-card border-primary">
+              <Note v-for="note in notes" :key="note.id" :note="note" class="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <Modal id="note-form">
+        <template #modal-title>
+          Add a Note
+        </template>
+        <template #modal-body>
+          <NoteForm />
+        </template>
+      </Modal>
     </div>
   </div>
-  <Modal id="note-form">
-    <template #modal-title>
-      Add a Note
-    </template>
-    <template #modal-body>
-      <NoteForm />
-    </template>
-  </Modal>
 </template>
 
 <script>
@@ -122,5 +122,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.header-style{
+  max-width: 80rem;
+}
+.note-card{
+  max-width: 90rem;
+}
 </style>

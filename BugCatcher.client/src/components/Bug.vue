@@ -4,15 +4,9 @@
     <div class="col-md-12 elevation-5 m-2 ms-2 pe-4 shadow-lg rounded bg-primary">
       <div class="">
         <div class="card stylecard elevation-5 text-start p-3   shadow-lg bg-secondary lighten-5 ">
-          <!-- <div class="on-hover text-end" style="right: 1rem; top: 1rem" v-if="account.id == project.creatorId">
-          <i class="mdi mdi-delete text-danger f-20 selectable" @click="deleteBug()"></i>
-        </div> -->
           <div class="d-flex justify-content-between">
-            <!-- <div class="">
-              <i :class="{'text-danger': bug.closed}" class="fa fa-circle fa-2x text-success my-auto" aria-hidden="true"></i>
-            </div> -->
             <div class="">
-              <router-link :to="{name: 'BugDetails', params: {bugId: bug.id }}" :title="bug.title">
+              <router-link submit.prevent :to="{name: 'BugDetails', params: {bugId: bug.id }}" :title="bug.title">
                 <h4 class="text-info">
                   {{ bug.title }}
                 </h4>
