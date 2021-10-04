@@ -5,6 +5,10 @@
         <button class="btn-btn bg-primary rounded shadow text-dark border-warning" title="Edit bug" v-if="!currentBug.closed" data-bs-toggle="modal" data-bs-target="#edit-form">
           Edit Bug
         </button>
+        <!-- <div v-if="!trackedBug.accountId == trackedBug.accountId"> -->
+        <button class="btn-btn bg-danger lighten-10 text-dark rounded shadow" title="Track Bug" @click="trackedBug(currentBug.id)">
+          Track Bug
+        </button>
         <div class="col-12 d-flex justify-content-center">
           <h3>
             {{ currentBug.title }}  <i class="mdi mdi-bug mdi-36px text-primary"></i>
@@ -22,7 +26,7 @@
             </p>
             <span v-if="!currentBug.closed == true">
               <i class="mdi mdi-circle mdi-36px text-success"></i>
-            <!-- <span> {{ bug.closed }}</span> -->
+              <!-- <span> {{ bug.closed }}</span> -->
             </span>
             <div class="p-2 d-flex" v-if="currentBug.id">
               <small>Status</small>
@@ -86,6 +90,7 @@ import { bugsService } from '../services/BugsService.js'
 import { AppState } from '../AppState.js'
 import Pop from '../utils/Pop.js'
 import { notesService } from '../services/NotesService.js'
+import { trackedBugsService } from '../services/TrackedBugsService.js'
 export default {
 
   setup(props) {
@@ -102,6 +107,11 @@ export default {
       } catch (error) {
         Pop.toast(error, 'error')
       }
+      try {
+        await bugsService.getTrackedBugs(route.params.bugId)
+      } catch (error) {
+        Pop.toast(error, 'error')
+      }
     })
     return {
       editable,
@@ -111,6 +121,7 @@ export default {
       currentBug: computed(() => AppState.currentBug),
       bugs: computed(() => AppState.bugs),
       notes: computed(() => AppState.notes),
+      trackedbug: computed(() => AppState.trackedbug),
 
       async toggleClosed(bugId) {
         try {
@@ -121,8 +132,14 @@ export default {
         } catch (error) {
           Pop.toast(error, 'error')
         }
+      },
+      async trackedBug(id) {
+        try {
+          await trackedBugsService.createTrackedBug(id)
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
       }
-
     }
   }
 }

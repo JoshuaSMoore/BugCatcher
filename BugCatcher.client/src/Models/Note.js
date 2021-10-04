@@ -1,5 +1,5 @@
 export class Note {
-  constructor(data) {
+  constructor(data = {}) {
     this.body = data.body
     this.bugId = data.bugId
     this.creatorId = data.creatorId

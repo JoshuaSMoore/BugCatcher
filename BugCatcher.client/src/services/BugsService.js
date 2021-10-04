@@ -38,6 +38,12 @@ class BugsService {
     AppState.bug = new Bug(res.data)
     AppState.currentBug = res.data
   }
+
+  async getTrackedBugs(bugId) {
+    const res = await api.get(`api/bugs/${bugId}/trackedbugs`)
+    AppState.trackedbugs = res.data
+    logger.log('error', bugId)
+  }
 }
 
 export const bugsService = new BugsService()
