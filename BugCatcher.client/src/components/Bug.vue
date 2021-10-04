@@ -1,9 +1,9 @@
 
 <template>
   <div class="bugpage" v-if="(sort.order == 'closed' && bug.closed) || (sort.order == 'active' && !bug.closed) || (sort.order == 'all' && bug.priority) || (sort.order == 'update' && bug.updatedAt)">
-    <div class="col-md-12 elevation-5 m-3 shadow-lg">
-      <div class="bugcard ">
-        <div class="card stylecard elevation-5 text-start p-3   shadow-lg">
+    <div class="col-md-12 elevation-5 m-2 ms-2 pe-4 shadow-lg rounded bg-primary">
+      <div class="">
+        <div class="card stylecard elevation-5 text-start p-3   shadow-lg bg-secondary lighten-5 ">
           <!-- <div class="on-hover text-end" style="right: 1rem; top: 1rem" v-if="account.id == project.creatorId">
           <i class="mdi mdi-delete text-danger f-20 selectable" @click="deleteBug()"></i>
         </div> -->
@@ -11,32 +11,34 @@
             <!-- <div class="">
               <i :class="{'text-danger': bug.closed}" class="fa fa-circle fa-2x text-success my-auto" aria-hidden="true"></i>
             </div> -->
-            <h5 class="">
+            <div class="">
               <router-link :to="{name: 'BugDetails', params: {bugId: bug.id }}" :title="bug.title">
-                {{ bug.title }}
+                <h4 class="text-info">
+                  {{ bug.title }}
+                </h4>
               </router-link>
               <div class="text-success mt-3" v-if="bug.priority <=3">
-                <small>
+                <h6>
                   Priority Level:  {{ bug.priority }}
-                </small>
+                </h6>
               </div>
               <div class="text-warning mt-3" v-if="bug.priority == 4">
-                <small>
+                <h6>
                   Priority Level:  {{ bug.priority }}
-                </small>
+                </h6>
               </div>
               <div class="text-danger mt-3" v-if="bug.priority == 5">
-                <small>
+                <h6>
                   Priority Level:  {{ bug.priority }}
-                </small>
+                </h6>
               </div>
               <br>
               <small>
                 Last Update:<br> {{ new Date(bug.updatedAt).toLocaleString('en', date) }}
               </small>
-            </h5>
-            <div class="div">
-              <small> Details: </small> <br>
+            </div>
+            <div class="div text-center">
+              <small> Details: </small>
               <h4>
                 {{ bug.description }}
               </h4>

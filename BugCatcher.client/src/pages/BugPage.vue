@@ -1,17 +1,19 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12">
-        <div class="div pt-3 pe-2 d-flex justify-content-end">
+      <div class="col-3">
+        <div class="div pt-2 ps-2 d-flex justify-content-start">
           <button class="btn-btn bg-primary rounded shadow text-light bugbtn" data-bs-toggle="modal" data-bs-target="#bug-form">
             Add a Bug
           </button>
         </div>
+      </div>
+      <div class="col-9">
         <div class="home d-flex justify-content-end">
           <div class="div text-start">
           </div>
-          <div class="row result-controls" @contextmenu.prevent v-if="bugs.length">
-            <div class="card-header shadow">
+          <div class="row result-controls pe-3 pt-2" @contextmenu.prevent v-if="bugs.length">
+            <div class="card-header shadow bg-secondary lighten-10 rounded">
               <small> Sort By: </small>
               <button class="btn-btn bg-dark text-light rounded shadow" @click="order('all')">
                 Last Updated
@@ -30,8 +32,10 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <Bug v-for="bug in bugs" :key="bug.id" :bug="bug" class="col-md-12" />
+  </div>
+  <div class="container-fluid p-3 pe-4">
+    <div class="row card bg-primary lighten-20">
+      <Bug v-for="bug in bugs" :key="bug.id" :bug="bug" class="" />
     </div>
   </div>
   <div class="container-fluid">
@@ -56,7 +60,7 @@ import { logger } from '../utils/Logger.js'
 
 export default {
   setup() {
-    const prioFilter = ref()
+    const prioFilter = ref(true)
 
     function prioFilterFunction(a, b) {
       if (prioFilter.value) {
@@ -72,9 +76,8 @@ export default {
       bugs: computed(() => AppState.bugs),
       profile: computed(() => AppState.profile),
       sort: computed(() => AppState.sort),
-      bug: computed(() => AppState.bug),
       currentBug: computed(() => AppState.currentBug),
-      prio: computed(() => AppState.bugs.filter(prioFilterFunction)),
+      bug: computed(() => AppState.bugs.filter(prioFilterFunction)),
       togglePriority() {
         prioFilter.value = !prioFilter.value
         logger.log(prioFilter)
@@ -91,6 +94,6 @@ export default {
 
 <style scoped lang="scss">
 .bugbtn{
-  max-height: 36px;
+  min-height: 40px;
 }
 </style>
