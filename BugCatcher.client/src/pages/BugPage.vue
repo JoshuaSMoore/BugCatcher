@@ -15,16 +15,16 @@
           <div class="row result-controls pe-3 pt-2" @contextmenu.prevent v-if="bugs.length">
             <div class="card-header shadow bg-secondary lighten-10 rounded">
               <small> Sort By: </small>
-              <button class="btn-btn bg-secondary text-dark rounded shadow" title="Last Updated" @click="getAllBugs()">
+              <button class="btn-btn bg-secondary text-dark rounded shadow" title="Last Updated" @click.prevent="getAllBugs(bug)">
                 Last Updated
               </button>
-              <button class="btn-btn bg-primary text-dark rounded shadow" title="Priority Level" @click="order('priority')">
+              <button class="btn-btn bg-primary text-dark rounded shadow" title="Priority Level" @click.prevent="order('priority')">
                 Priority
               </button>
-              <button class="btn-btn bg-success lighten-15 text-dark rounded" title="Open Bugs" @click="order('active')">
+              <button class="btn-btn bg-success lighten-15 text-dark rounded" title="Open Bugs" @click.prevent="order('active')">
                 Open Bugs
               </button>
-              <button class="btn-btn bg-danger lighten-10 text-dark rounded shadow" title="Closed Bugs" @click="order('closed')">
+              <button class="btn-btn bg-danger lighten-10 text-dark rounded shadow" title="Closed Bugs" @click.prevent="order('closed')">
                 Closed Bugs
               </button>
             </div>
@@ -53,10 +53,9 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from '@vue/runtime-core'
+import { computed, onMounted } from '@vue/runtime-core'
 import { bugsService } from '../services/BugsService.js'
 import { AppState } from '../AppState.js'
-import { logger } from '../utils/Logger.js'
 
 export default {
   setup() {

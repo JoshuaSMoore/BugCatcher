@@ -1,13 +1,21 @@
 <template>
-  <div class="about text-center">
+  <div class="about text-center text-dark">
     <h1>Welcome {{ account.name }}</h1>
-    <img class="rounded" :src="account.picture" alt="" />
-    <p>{{ account.email }}</p>
+    <img class="rounded-circle" style="height: 75px" :src="account.picture" alt="" />
+    <h6 class="text-primary">
+      {{ account.email }}
+    </h6>
+  </div>
+  <br>
+  <div class="card-header track text-center text-secondary">
+    <h2>
+      <span class="badge bg-secondary text-warning">Tracked Bugs</span>
+    </h2>
   </div>
   <div v-if="accountBugs">
     <div class="container">
       <div class="row">
-        <AccountBug v-for="b in accountBugs" :key="b.id" :bug="b" class="col-6" />
+        <AccountBug v-for="b in accountBugs" :key="b.id" :bug="b" class="col-12" />
       </div>
     </div>
   </div>
@@ -41,4 +49,5 @@ export default {
 img {
   max-width: 100px;
 }
+
 </style>

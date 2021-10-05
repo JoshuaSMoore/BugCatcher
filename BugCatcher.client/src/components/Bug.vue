@@ -1,6 +1,6 @@
 
 <template>
-  <div class="bugpage" v-if="(sort.order == 'closed' && bug.closed) || (sort.order == 'active' && !bug.closed) || (sort.order == 'priority' && bugs.sort((a, b) => { return b.priority - a.priority })) || (sort.order == 'all' && bug.updatedAt)">
+  <div class="bugpage" v-if="(sort.order == 'closed' && bug.closed) || (sort.order == 'active' && !bug.closed) || (sort.order == 'priority' && bugs.sort((a, b) => { return b.priority - a.priority })) || (sort.order == 'all')">
     <div class="col-md-12 elevation-5 m-2 ms-2 pe-4 shadow-lg rounded bg-primary">
       <div class="">
         <div class="card stylecard elevation-5 text-start p-3   shadow-lg bg-secondary lighten-5 ">
