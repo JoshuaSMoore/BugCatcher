@@ -41,7 +41,6 @@
               Status
               <br>
               <i class="mdi mdi-circle mdi-48px text-success"></i>
-              <!-- <span> {{ bug.closed }}</span> -->
             </div>
             <div v-else>
               Status

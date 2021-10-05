@@ -19,6 +19,7 @@ class NotesService {
         const res = await api.delete('api/notes/' + id, notes)
         Pop.toast('Note Deleted', 'success')
         AppState.notes = AppState.notes.filter(n => n.id !== id)
+        logger.log('the res', res)
       } catch (error) {
         Pop.toast(error)
       }
