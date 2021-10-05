@@ -22,7 +22,7 @@ export class AccountController extends BaseController {
 
   async getUserTrackedBugs(req, res, next) {
     try {
-      const bugs = await accountService.getUserTrackedBugs(req.params.userId)
+      const bugs = await accountService.getUserTrackedBugs(req.userInfo.id)
       res.send(bugs)
     } catch (error) {
       next(error)

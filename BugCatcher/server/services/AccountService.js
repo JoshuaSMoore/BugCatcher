@@ -75,8 +75,8 @@ class AccountService {
     return account
   }
 
-  async getUserTrackedBugs(userId) {
-    const bugs = await dbContext.TrackedBug.find({ userId }).populate('bug').populate('tracker')
+  async getUserTrackedBugs(accountId) {
+    const bugs = await dbContext.TrackedBug.find({ accountId }).populate('bug').populate('tracker')
     return bugs
   }
 }

@@ -148,7 +148,7 @@ export default {
       bugs: computed(() => AppState.bugs),
       notes: computed(() => AppState.notes),
       trackedbug: computed(() => AppState.trackedbugs.find(b => b.accountId === AppState.account.id)),
-
+      // FIXME getalltrackers from appstate - render them to the page
       async toggleClosed(bugId) {
         try {
           editable.value.bugId = props.bugId

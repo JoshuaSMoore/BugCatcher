@@ -39,6 +39,10 @@ class BugsService {
     if (userId !== bug.creatorId.toString()) {
       throw new Forbidden('Nope, not allowed')
     }
+    if (bug.closed) {
+      throw new Forbidden('Not allowed to do this')
+    }
+    // FIXME if bug is closed throw you cant edit closed bug
     bug.title = bugData.title || bug.title
     bug.description = bugData.description || bug.description
     bug.priority = bugData.priority || bug.priority
