@@ -18,9 +18,9 @@
           </div>
         </div>
         <div class="col-12 d-flex justify-content-center">
-          <h1 class="">
+          <h2 class="">
             {{ currentBug.title }}  <i class="mdi mdi-bug mdi-36px text-primary"></i>
-          </h1>
+          </h2>
         </div>
         <div v-if="trackedbug">
           <p>

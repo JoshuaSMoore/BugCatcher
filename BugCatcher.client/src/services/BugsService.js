@@ -25,12 +25,15 @@ class BugsService {
   }
 
   async closeBug(bugId, currentBug) {
-    try {
-      const res = await api.delete('api/bugs/' + bugId, currentBug)
-      logger.log(res.data, 'closed logger')
-      AppState.currentBug = res.data
-    } catch (error) {
-      Pop.toast(error)
+    if (await Pop.confirm('Close Bug?')) {
+      try {
+        const res = await api.delete('api/bugs/' + bugId, currentBug)
+        Pop.toast('Bug Closed', 'success')
+        logger.log(res.data, 'closed logger')
+        AppState.currentBug = res.data
+      } catch (error) {
+        Pop.toast(error)
+      }
     }
   }
 
