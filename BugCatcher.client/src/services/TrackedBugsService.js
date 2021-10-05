@@ -7,7 +7,7 @@ class TrackedBugsService {
   async createTrackedBug(id) {
     try {
       const res = await api.post('api/trackedbugs', { bugId: id })
-      Pop.toast(res.data, 'success')
+      Pop.toast('Bug Tracked', 'success')
       AppState.trackedbugs.shift(res.data)
       logger.log('the res for tracked', res)
     } catch (error) {
@@ -19,6 +19,7 @@ class TrackedBugsService {
     const trackedbugs = AppState.trackedbugs
     const currenttracked = trackedbugs.find(t => t.accountId === accountId)
     const res = await api.delete(`api/trackedbugs/${currenttracked.id}`)
+    Pop.toast('Tracked Bug Removed', 'success')
     logger.log('tracked delete', res)
     AppState.trackedbugs = AppState.trackedbugs.filter(t => t.id !== currenttracked.id)
   }

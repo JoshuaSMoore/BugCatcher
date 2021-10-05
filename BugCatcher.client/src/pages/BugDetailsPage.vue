@@ -5,7 +5,7 @@
         <button class="btn-btn bg-primary rounded shadow text-dark border-warning" title="Edit bug" v-if="!currentBug.closed" data-bs-toggle="modal" data-bs-target="#edit-form">
           Edit Bug
         </button>
-        <button class="btn-btn bg-danger lighten-10 text-dark rounded shadow" title="Track Bug" v-if="!trackedbug" @click="trackedBug(currentBug.id)">
+        <button class="btn-btn bg-danger lighten-10 text-dark rounded shadow" title="Track Bug" v-if="!trackedbug" @click.prevent="trackedBug(currentBug.id)">
           Track Bug
         </button>
         <div v-else>
@@ -18,6 +18,11 @@
             {{ currentBug.title }}  <i class="mdi mdi-bug mdi-36px text-primary"></i>
           </h3>
         </div>
+        <div v-if="trackedbug">
+          <p>
+            Whos tracking this bug: {{ trackedbug.tracker.name }} <br> <img :src="trackedbug.tracker.picture" class="rounded-circle">
+          </p>
+        </div>
         <div class="row justify-content-center rounded">
           <div class="col-8 card bg-secondary lighten-5 p-2 shadow rounded d-flex justify-content-between border-primary" v-if="currentBug.creator">
             <p>
@@ -27,9 +32,6 @@
             <br><br>
             <p class="text-center">
               {{ currentBug.description }}
-            </p>
-            <p>
-              Whos tracking this bug:
             </p>
             <br>
             <span v-if="!currentBug.closed == true">
