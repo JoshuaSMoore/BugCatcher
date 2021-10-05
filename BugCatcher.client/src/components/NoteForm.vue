@@ -50,8 +50,8 @@ export default {
         try {
           editable.value.bugId = props.bugId
           editable.value.bugId = route.params.bugId
-          await notesService.createNote(editable.value, route.params.bugId)
           Pop.toast('Note Added', 'success')
+          await notesService.createNote(editable.value, route.params.bugId)
           const modal = Modal.getInstance(document.getElementById('note-form'))
           modal.hide()
         } catch (error) {

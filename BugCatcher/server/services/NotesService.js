@@ -6,8 +6,7 @@ class NotesService {
   async createNote(noteData) {
     const note = await dbContext.Note.create(noteData)
     await dbContext.Note.findById(note.id)
-    await note.populate('creator').populate
-    await note.populate('bug').populate
+    await note.populate('creator')
 
     return note
   }

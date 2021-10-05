@@ -30,7 +30,7 @@ class NotesService {
       const res = await api.post('api/notes', newNote)
       AppState.notes.push(res.data)
     } catch (error) {
-      logger.log('notes creatior error', error)
+      Pop.toast(error)
     }
   }
 }
