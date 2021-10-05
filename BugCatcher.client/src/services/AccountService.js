@@ -12,10 +12,10 @@ class AccountService {
     }
   }
 
-  async getTrackedBugs(accountId) {
-    const res = await api.get('/account/trackedbugs', accountId)
-    AppState.trackedbugs = res.data
-    logger.log('error', accountId)
+  async getTrackedBugs() {
+    const res = await api.get('/account/trackedbugs')
+    AppState.accountBugs = res.data
+    logger.log('error', res)
   }
 }
 

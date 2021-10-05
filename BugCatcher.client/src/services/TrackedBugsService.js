@@ -8,7 +8,7 @@ class TrackedBugsService {
     try {
       const res = await api.post('api/trackedbugs', { bugId: id })
       Pop.toast(res.data, 'success')
-      AppState.trackedbugs.push(res.data)
+      AppState.trackedbugs.shift(res.data)
       logger.log('the res for tracked', res)
     } catch (error) {
       Pop.toast(error)

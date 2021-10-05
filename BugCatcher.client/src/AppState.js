@@ -11,6 +11,7 @@ export const AppState = reactive({
   bug: [],
   sort: { order: 'all' },
   currentBug: null,
-  sortedBugs: []
+  sortedBugs: [],
+  accountBugs: []
   // status: ''
 })
