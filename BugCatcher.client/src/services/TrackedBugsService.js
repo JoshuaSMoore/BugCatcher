@@ -15,13 +15,12 @@ class TrackedBugsService {
     }
   }
 
-  async removeTrackedBug(trackedBugId) {
-    try {
-      const res = await api.delete(`api/trackedbugs/${trackedBugId}`)
-      AppState.trackedbugs = res.data
-    } catch (error) {
-      logger.log('tracked bugs creatior error', error)
-    }
+  async deleteTrackedBug(accountId) {
+    const trackedbugs = AppState.trackedbugs
+    const currenttracked = trackedbugs.find(t => t.accountId === accountId)
+    const res = await api.delete(`api/trackedbugs/${currenttracked.id}`)
+    logger.log('tracked delete', res)
+    AppState.trackedbugs = AppState.trackedbugs.filter(t => t.id !== currenttracked.id)
   }
 }
 

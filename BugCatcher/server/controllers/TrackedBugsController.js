@@ -1,7 +1,7 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
+import { bugsService } from '../services/BugsService.js'
 import { trackedBugsService } from '../services/TrackedBugsService.js'
 import BaseController from '../utils/BaseController.js'
-import { logger } from '../utils/Logger.js'
 
 export class TrackedBugsController extends BaseController {
   constructor() {
@@ -15,9 +15,9 @@ export class TrackedBugsController extends BaseController {
   async createTrackedBug(req, res, next) {
     try {
       req.body.accountId = req.userInfo.id
-      logger.log('current creator', req.userInfo)
-      const trackedbug = await trackedBugsService.createTrackedBug(req.body)
-      res.send(trackedbug)
+      const oldTracked = await bugsService.getTrackedBugsById(req.body.bugId)
+      const newTracked = await trackedBugsService.createTrackedBug(req.body, oldTracked, req.userInfo.id)
+      res.send(newTracked)
     } catch (error) {
       next(error)
     }
@@ -25,7 +25,7 @@ export class TrackedBugsController extends BaseController {
 
   async deleteTrackedBug(req, res, next) {
     try {
-      const trackedbug = await trackedBugsService.deleteTrackedBug(req.params.trackedBugId, req.params.accountId)
+      const trackedbug = await trackedBugsService.deleteTrackedBug(req.params.trackedBugId, req.userInfo.id)
       res.send(trackedbug)
     } catch (error) {
       next(error)

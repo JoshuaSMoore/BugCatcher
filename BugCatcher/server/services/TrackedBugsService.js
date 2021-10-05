@@ -1,24 +1,24 @@
 import { dbContext } from '../db/DbContext.js'
-import { Forbidden } from '../utils/Errors.js'
-import { bugsService } from './BugsService.js'
+import { BadRequest, Forbidden } from '../utils/Errors.js'
 
 class TrackedBugsService {
-  async createTrackedBug(trackedBugData, bugId) {
-    await bugsService.getBugById(trackedBugData.bugId)
-
-    if (trackedBugData.bugid === 'bug') {
-      throw new Forbidden('Bug has already been tracked')
+  async createTrackedBug(body, oldTracked, accountId) {
+    for (let i = 0; i < oldTracked.length; i++) {
+      const check = oldTracked[i]
+      if (check.accountId.toString() === accountId) {
+        throw new BadRequest("can't track bugs more than once")
+      }
     }
-    const trackedbug = await dbContext.TrackedBug.create(trackedBugData)
-    await trackedbug.populate('tracker')
-    await trackedbug.populate('bug')
-    return trackedbug
+    const newTracked = await dbContext.TrackedBug.create(body)
+    await newTracked.populate('bug')
+    await newTracked.populate('tracker')
+    return newTracked
   }
 
   async deleteTrackedBug(trackedBugId, userId) {
     const trackedbug = await dbContext.TrackedBug.findByIdAndDelete(trackedBugId)
-    if (userId !== trackedbug.creatorId.toString()) {
-      throw new Forbidden('Not allowed to close')
+    if (userId !== trackedbug.accountId.toString()) {
+      throw new Forbidden('Not allowed to do thisssss')
     }
     await trackedbug.remove()
     return trackedbug

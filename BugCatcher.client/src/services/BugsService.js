@@ -46,14 +46,6 @@ class BugsService {
     AppState.trackedbugs = res.data
     logger.log('error', bugId)
   }
-
-  async deleteTrackedBug(accountId) {
-    const trackedbugs = AppState.trackedbugs
-    const currenttracked = trackedbugs.find(t => t.accountId === accountId)
-    const res = await api.delete(`api/trackedbugs/${currenttracked.id}`)
-    logger.log('tracked delete', res)
-    AppState.trackedbugs = AppState.trackedbugs.filter(t => t.id !== currenttracked.id)
-  }
 }
 
 export const bugsService = new BugsService()

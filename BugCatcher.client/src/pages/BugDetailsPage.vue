@@ -9,7 +9,7 @@
           Track Bug
         </button>
         <div v-else>
-          <button class="btn-btn bg-Primary lighten-10 text-dark rounded shadow" title="Track Bug" @click="deleteTrackedBug(currentBug.id)">
+          <button class="btn-btn bg-Primary lighten-10 text-dark rounded shadow" title="Track Bug" @click="deleteTrackedBug(account.id)">
             Remove
           </button>
         </div>
@@ -146,6 +146,13 @@ export default {
           await trackedBugsService.createTrackedBug(id)
         } catch (error) {
           Pop.toast(error, 'error')
+        }
+      },
+      async deleteTrackedBug(accountId) {
+        try {
+          await trackedBugsService.deleteTrackedBug(accountId)
+        } catch (error) {
+          Pop.toast(error.message, 'error')
         }
       }
     }
